@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios').default;
 let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
@@ -26,8 +27,10 @@ public_users.post("/register", (req,res) => {
 });
 
 // Get the book list available in the shop
-public_users.get('/',function (req, res) {
-  return res.status(200).json(books);
+public_users.get('/', async function (req, res) {
+  const response = await axios.get('https://raw.githubusercontent.com/regiscamimura/expressBookReviews/refs/heads/main/final_project/router/booksdb.js');
+  console.log(response)
+  // return res.status(200).json({ "message": JSON.stringify(response) });
 });
 
 // Get book details based on ISBN
